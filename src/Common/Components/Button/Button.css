@@ -1,5 +1,5 @@
 .button {
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0 var(--space-16);
   font-weight: var(--font-weight-500);
   font-size: var(--font-size-14);
@@ -20,19 +20,19 @@
   color: #ffffff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.08),
     inset 0px -1px 0px rgba(0, 0, 0, 0.2);
-  background: var(--colors-primary-500);
+  background: var(--colors-success-500);
 }
 
 .button-solid:hover {
-  background: var(--colors-primary-600);
+  background: var(--colors-success-600);
 }
 
 .button-solid:focus {
-  outline: 1px solid var(--colors-primary-600);
+  outline: 1px solid var(--colors-success-600);
 }
 
 .button-solid:active {
-  background: var(--colors-primary-700);
+  background: var(--colors-success-700);
 }
 
 .button-lg {
@@ -50,4 +50,8 @@
   justify-content: center;
   width: 16px;
   height: 16px;
+}
+
+.button-secondary {
+  background-color: var(--white);
 }

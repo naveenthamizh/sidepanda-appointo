@@ -1,0 +1,108 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.datePicker {
+  width: 100%;
+  height: 100%;
+  background-color: #ebebf0;
+  padding: var(--space-40);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-20);
+}
+
+.dateDropdown {
+  width: 340px;
+  height: 340px;
+}
+
+.slots {
+  width: 100%;
+  height: 100%;
+  padding: var(--space-40);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-20);
+}
+
+.slotDate {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-600);
+  text-align: left;
+  color: #555770;
+  text-transform: uppercase;
+}
+
+.slotCard {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--colors-success-500);
+  color: var(--colors-success-500);
+  font-weight: var(--font-weight-600);
+  font-size: var(--font-size-14);
+  padding: var(--space-8) var(--space-12);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.selectedCard {
+  background-color: var(--colors-success-500);
+  color: var(--white);
+  justify-content: space-between;
+}
+
+.slotContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.slotContainer::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.slotContainer:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+.slotContainer::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.slotContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-8);
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.availableSlots {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-8);
+  text-transform: uppercase;
+}
+
+.meetingTitle {
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-600);
+  letter-spacing: 0.25px;
+  text-align: left;
+}
+
+.timeZone,
+.timeZoneLocation {
+  font-weight: var(--font-weight-600);
+  font-size: var(--font-size-14);
+  color: #555770;
+}
+
+.timeZoneLocation {
+  font-weight: var(--font-weight-500);
+}

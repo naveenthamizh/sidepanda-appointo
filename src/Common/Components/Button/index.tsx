@@ -20,7 +20,7 @@ interface ButtonProps {
   children: React.ReactNode;
   disabled?: boolean;
   leftIcon?: React.ReactElement;
-  rightIcon?: string;
+  rightIcon?: React.ReactElement;
   onClick?: () => void;
   variant?: BUTTON_VARIANTS;
 }

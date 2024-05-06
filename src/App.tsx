@@ -4,7 +4,7 @@ import MeetingScheduler from "./Components/MeetingScheduler";
 
 function App() {
   return (
-    <main>
+    <main className="App">
       <Header />
       <MeetingScheduler />
     </main>

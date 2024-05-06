@@ -1,0 +1,189 @@
+.calendar-datetime-picker-container {
+  position: relative;
+  height: fit-content;
+  background-color: var(--white);
+  border-radius: 8px;
+}
+
+.calendar-date-picker {
+  padding-bottom: var(--space-8);
+}
+
+.calendar-datetime-picker-right-icon-container {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-8);
+}
+
+.calendar-datetime-picker-right-icon-container > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-datetime-picker-remove {
+  display: flex;
+  cursor: pointer;
+}
+
+.calendar-date-picker-header {
+  font-size: var(--font-size-18);
+  line-height: 20px;
+  padding: var(--space-16) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+.calendar-date-picker-chevron {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.calendar-date-picker-daynames {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: var(--space-8);
+  user-select: none;
+  color: var(--colors-success-500);
+}
+
+.calendar-date-picker-days {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  grid-template-rows: auto;
+  padding: 0 var(--space-8);
+  user-select: none;
+  gap: var(--space-16);
+  color: var(--colors-success-500);
+}
+
+.calendar-date-picker-daynames > div,
+.calendar-date-picker-days > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+  width: 52px;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 20px / 50%;
+}
+
+.calendar-date-picker-days > .calendar-date-picker-day {
+  color: #333333;
+  cursor: pointer;
+}
+
+.calendar-date-picker-daynames > div {
+  font-weight: var(--font-weight-600);
+  font-size: 12px;
+  height: 16px;
+  margin-left: 12px;
+  margin-bottom: 12px;
+}
+
+.calendar-date-picker-days .calendar-date-picker-day:hover {
+  color: var(--colors-success-500);
+  background-color: var(--colors-success-100);
+  font-weight: var(--font-weight-600);
+}
+
+.calendar-date-picker-other-month-day {
+  opacity: 0.5;
+}
+
+.calendar-date-picker-day-selected {
+  cursor: pointer;
+  background-color: var(--colors-success-500) !important;
+  color: var(--white) !important;
+  font-weight: var(--font-weight-600);
+}
+
+.calendar-date-picker-days .calendar-date-picker-today {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  width: 32px;
+  border: 1px solid var(--colors-success-500) !important;
+  color: var(--colors-success-500) !important;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.calendar-time-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16);
+  border-top: 1px solid var(--gray-3);
+}
+
+.calendar-time-picker > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-time-picker > div:first-child > *:not(:last-child) {
+  margin-right: var(--space-4);
+}
+
+.calendar-date-picker-day-disable,
+.calendar-date-picker-day-disable:hover {
+  cursor: not-allowed;
+  background-color: var(--white) !important;
+  border: none;
+  color: #333333 !important;
+  font-weight: initial;
+}
+
+.calendar-time-picker-done {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+  padding: 0 var(--space-16) var(--space-12);
+}
+
+.chevrons-align {
+  display: flex;
+  color: var(--colors-success-500);
+  align-items: center;
+  gap: 40px;
+}
+.chevrons-align > :first-child {
+  padding-right: 20px;
+}
+.chevrons-align > :last-child {
+  padding-right: 4px;
+}
+.calendar-date-picker-header > :first-child {
+  padding-left: 8px;
+}
+
+.calendar-date-same-work-day {
+  border: 1px solid var(--colors-success-500);
+}
+
+.show-only-current-month-days {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .calendar-date-picker-days {
+    gap: 10px;
+  }
+}
+
+.divider {
+  width: 100%;
+  border: 1px solid var(--gray-2);
+}
