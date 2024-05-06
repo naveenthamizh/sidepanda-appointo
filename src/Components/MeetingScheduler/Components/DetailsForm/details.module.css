@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0.4fr 0.6fr;
+  transition: all 0.22s ease-out;
+}
+
+.hostDetails {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-20);
+  background-color: var(--gray-2);
+  padding: var(--space-20);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-500);
+  color: #555770;
+}
+
+.hostName > :nth-child(2) {
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-600);
+}
+
+.attendeeForm {
+  padding: var(--space-20);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-20);
+}
+
+.locationInfo {
+  display: flex;
+  column-gap: var(--space-8);
+}
+
+@media only screen and (max-width: 868px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+}

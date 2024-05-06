@@ -8,13 +8,15 @@
 }
 
 .content {
-  width: 80%;
+  min-width: 900px;
+  max-width: 1060px;
   height: 65%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 25px;
   overflow: hidden;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .footer {
@@ -35,4 +37,24 @@
 .actionBtn {
   display: flex;
   column-gap: var(--space-16);
+}
+
+@media only screen and (max-width: 868px) {
+  .container {
+    display: block;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 400px;
+    max-width: 800px;
+    height: 100%;
+    border-radius: 0px;
+  }
+
+  .footer {
+    width: 100%;
+  }
 }

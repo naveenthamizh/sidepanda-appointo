@@ -112,11 +112,11 @@
   align-items: center;
   justify-content: center;
   height: 34px;
-  width: 32px;
+  width: 52px;
   border: 1px solid var(--colors-success-500) !important;
   color: var(--colors-success-500) !important;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 20px / 50%;
 }
 
 .calendar-time-picker {

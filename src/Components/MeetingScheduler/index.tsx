@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SlArrowRight } from "react-icons/sl";
 import { SlArrowLeft } from "react-icons/sl";
+import { produce } from "immer";
 
 import SlotPicker from "./Components/SlotsPicker";
 import DetailsForm from "./Components/DetailsForm";
@@ -13,7 +14,7 @@ import {
 } from "../../Common/Components/Button";
 import { RenderWhen } from "../../Common/Utils/RenderWhen";
 
-import { BOOKING_STEPS } from "./types";
+import { BOOKING_STEPS, IBookingInfo } from "./types";
 
 import styles from "./meetingscheduler.module.css";
 
@@ -22,19 +23,45 @@ function MeetingScheduler() {
 
   const currentStepName = Object.values(BOOKING_STEPS)[currentStep];
 
+  const [bookingInfo, setBookingInfo] = useState<IBookingInfo>(
+    {} as IBookingInfo
+  );
+
+  const bookingInfoHandler = <T extends keyof IBookingInfo>(
+    key: T,
+    value: IBookingInfo[T]
+  ) => {
+    setBookingInfo(
+      produce(bookingInfo, (draft) => {
+        draft[key] = value;
+      })
+    );
+  };
+
+  console.log("[Info]", bookingInfo);
+
   return (
     <main className={styles.container}>
       <section className={styles.content}>
         <RenderWhen.If isTrue={currentStepName === BOOKING_STEPS.SLOT_PICKER}>
-          <SlotPicker />
+          <SlotPicker
+            bookingInfoHandler={(value) =>
+              bookingInfoHandler("slotDetails", value)
+            }
+          />
         </RenderWhen.If>
         <RenderWhen.If isTrue={currentStepName === BOOKING_STEPS.DETAILS_FORM}>
-          <DetailsForm />
+          <DetailsForm
+            bookedInfo={bookingInfo.slotDetails}
+            bookingInfoHandler={(value) => {
+              bookingInfoHandler("attendeeInfo", value);
+            }}
+          />
         </RenderWhen.If>
         <RenderWhen.If
           isTrue={currentStepName === BOOKING_STEPS.CONFIRMATION_PAGE}
         >
-          <SlotConfirmation />
+          <SlotConfirmation bookedInfo={bookingInfo.slotDetails} />
         </RenderWhen.If>
         <footer className={styles.footer}>
           <div>
@@ -71,6 +98,14 @@ function MeetingScheduler() {
                 variant={BUTTON_VARIANTS.SECONDARY}
                 rightIcon={
                   <SlArrowRight color="var(--colors-success-700)" size="10" />
+                }
+                disabled={
+                  (currentStep === 0 && Boolean(!bookingInfo.slotDetails)) ||
+                  (currentStep === 1 &&
+                    Boolean(
+                      !bookingInfo.attendeeInfo?.name ||
+                        !bookingInfo.attendeeInfo?.email
+                    ))
                 }
               >
                 {currentStepName === BOOKING_STEPS.DETAILS_FORM

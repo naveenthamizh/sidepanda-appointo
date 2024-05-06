@@ -1,0 +1,49 @@
+.locationInfo {
+  display: flex;
+  column-gap: var(--space-8);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  row-gap: var(--space-12);
+  height: 100%;
+}
+
+.successContainer {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-20);
+  column-gap: var(--space-12);
+}
+
+.bookedInfo {
+  border: 1px solid var(--gray-5);
+  border-radius: var(--border-radius);
+  padding: var(--space-12);
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-14);
+  color: #555770;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-20);
+}
+
+.bookedInfo > :first-child {
+  font-weight: var(--font-weight-600);
+  font-size: var(--font-size-18);
+}
+
+.meetingInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-8);
+}
+
+.inviteCopy {
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-14);
+  color: #555770;
+}

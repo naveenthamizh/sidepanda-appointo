@@ -55,7 +55,7 @@
 .selectedCard {
   background-color: var(--colors-success-500);
   color: var(--white);
-  justify-content: space-between;
+  justify-self: space-between;
 }
 
 .slotContainer::-webkit-scrollbar {
@@ -79,6 +79,7 @@
   flex-direction: column;
   row-gap: var(--space-8);
   height: 300px;
+  padding-right: var(--space-4);
   overflow-y: scroll;
 }
 
@@ -105,4 +106,51 @@
 
 .timeZoneLocation {
   font-weight: var(--font-weight-500);
+}
+
+.timeSlots {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slotOnLoad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: var(--font-weight-500);
+  color: #555770;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 12px;
+}
+
+@media only screen and (max-width: 868px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .datePicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slotContainer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
