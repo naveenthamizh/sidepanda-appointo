@@ -14,6 +14,8 @@ import styles from "./details.module.css";
 function DetailsForm(props: IDetailsForm) {
   const { bookedInfo, bookingInfoHandler } = props;
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const meetingInfo = useMemo(() => {
     const startTime = dayjs(bookedInfo.selectedSlot).format("h:mm A");
     const endTime = dayjs(bookedInfo.selectedSlot)
@@ -74,8 +76,15 @@ function DetailsForm(props: IDetailsForm) {
         <TextInput
           label="Email Id"
           required
-          onChange={(value) => updateAttendee("email", value)}
-          onBlur={() => bookingInfoHandler(attendee)}
+          onChange={(value) => {
+            updateAttendee("email", value);
+          }}
+          onBlur={() =>
+            emailRegex.test(attendee.email) && bookingInfoHandler(attendee)
+          }
+          error={
+            !emailRegex.test(attendee.email) ? "Invalid email address" : ""
+          }
         />
       </section>
     </main>

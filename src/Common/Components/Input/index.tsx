@@ -10,10 +10,19 @@ export type TextInputProps = {
   required?: boolean;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 };
 
 export const TextInput = (props: TextInputProps) => {
-  const { label, value = "", placeholder, required, onChange, onBlur } = props;
+  const {
+    label,
+    value = "",
+    placeholder,
+    required,
+    onChange,
+    onBlur,
+    error,
+  } = props;
 
   const [textValue, setTextValue] = useState<string>("");
 
@@ -51,6 +60,9 @@ export const TextInput = (props: TextInputProps) => {
             placeholder={placeholder}
             tabIndex={2}
           />
+        </div>
+        <div className="text-input-bottom">
+          {error && <div className="text-input-error">{error}</div>}
         </div>
       </div>
     </div>
