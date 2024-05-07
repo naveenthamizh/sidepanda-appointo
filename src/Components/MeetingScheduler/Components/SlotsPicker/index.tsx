@@ -19,7 +19,6 @@ import styles from "./slotspicker.module.css";
 dayjs.extend(customParseFormat);
 
 function SlotPicker(props: ISlotPicker) {
-  console.log("122");
   const meetingSlotRef = useRef<ISlotsPickerRef>({
     selectedDate: dayjs(),
     buffer: 10,

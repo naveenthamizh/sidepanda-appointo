@@ -38,8 +38,6 @@ function MeetingScheduler() {
     );
   };
 
-  console.log("[Info]", bookingInfo);
-
   return (
     <main className={styles.container}>
       <section className={styles.content}>
