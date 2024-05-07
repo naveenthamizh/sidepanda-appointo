@@ -112,7 +112,7 @@ function SlotPicker(props: ISlotPicker) {
           </RenderWhen.If>
           <RenderWhen.If isTrue={!loading && !!slots?.length}>
             {slots?.map((date, index) => (
-              <div key={index}>
+              <div key={index} className={styles.slotDetails}>
                 <div className={styles.slotDate}>
                   {dayjs(date.date, "YYYY-MM-DD").format("dddd, MMM D")} -
                   available slot
