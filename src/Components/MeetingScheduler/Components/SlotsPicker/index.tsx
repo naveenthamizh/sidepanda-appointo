@@ -48,7 +48,11 @@ function SlotPicker(props: ISlotPicker) {
   };
 
   const onPickingDate = (date: dayjs.Dayjs | undefined) => {
-    const startDate = (date ?? selectedSlots.selectedDate).format("YYYY-MM-DD");
+    const currentMonth =
+      (date ?? selectedSlots.selectedDate).month() === dayjs().month();
+    const startDate = (
+      currentMonth ? dayjs() : date ?? selectedSlots.selectedDate
+    ).format("YYYY-MM-DD");
     const endDate = (date ?? selectedSlots.selectedDate)
       .endOf("month")
       .format("YYYY-MM-DD");
@@ -56,7 +60,11 @@ function SlotPicker(props: ISlotPicker) {
     fetchAvailbleTimeSlots(startDate, endDate)
       .then((response) => {
         setSlots(response);
-        updateSlotData("selectedDate", date ?? selectedSlots.selectedDate);
+
+        updateSlotData(
+          "selectedDate",
+          currentMonth ? dayjs() : date ?? selectedSlots.selectedDate
+        );
       })
       .finally(() => setLoading(false));
   };
