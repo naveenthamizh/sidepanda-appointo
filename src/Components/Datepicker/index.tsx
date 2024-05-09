@@ -33,6 +33,8 @@ interface DateTimeDropdownProps {
   workDays?: Record<number, number>;
   onlyShowCurrentMonthDays?: boolean;
   isEnableDate: boolean;
+  onPreviousClick?: (value: any) => void;
+  onNextClick?: (value: any) => void;
 }
 
 const TotalColumns = 7;
@@ -85,6 +87,8 @@ export function DateTimeDropdown(props: DateTimeDropdownProps): JSX.Element {
     enableFromDate,
     enableToDate,
     isEnableDate,
+    onNextClick,
+    onPreviousClick,
   } = props;
 
   const [renderDays, setRenderDays] = useState<Days>();
@@ -151,12 +155,15 @@ export function DateTimeDropdown(props: DateTimeDropdownProps): JSX.Element {
 
   const onPrevious = () => {
     const prevMonth = highlightedDate.subtract(1, "M");
-    if (dayjs().startOf("M").isSameOrBefore(dayjs(prevMonth).startOf("M")))
+    if (dayjs().startOf("M").isSameOrBefore(dayjs(prevMonth).startOf("M"))) {
       setHighLightedDate(prevMonth);
+      onPreviousClick && onPreviousClick(highlightedDate.add(1, "month"));
+    }
   };
 
   const onNext = () => {
     setHighLightedDate(highlightedDate.add(1, "month"));
+    onNextClick && onNextClick(highlightedDate.add(1, "month"));
   };
 
   const onDateSelect = (date: string) => {

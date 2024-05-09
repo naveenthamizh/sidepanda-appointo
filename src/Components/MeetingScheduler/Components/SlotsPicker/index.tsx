@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { PiCheckCircle } from "react-icons/pi";
@@ -50,7 +50,7 @@ function SlotPicker(props: ISlotPicker) {
   const onPickingDate = (date: dayjs.Dayjs | undefined) => {
     const startDate = (date ?? selectedSlots.selectedDate).format("YYYY-MM-DD");
     const endDate = (date ?? selectedSlots.selectedDate)
-      .add(1, "day")
+      .endOf("month")
       .format("YYYY-MM-DD");
 
     fetchAvailbleTimeSlots(startDate, endDate)
@@ -59,6 +59,15 @@ function SlotPicker(props: ISlotPicker) {
       })
       .finally(() => setLoading(false));
   };
+
+  const availableSlotsFn = useMemo(
+    () =>
+      slots?.reduce((acc: Record<string, any[]>, curr) => {
+        acc[curr.date] = curr.slots;
+        return acc;
+      }, {}),
+    [slots]
+  );
 
   useEffect(() => {
     onPickingDate(undefined);
@@ -76,7 +85,6 @@ function SlotPicker(props: ISlotPicker) {
           hasTime={false}
           timeFormat={12}
           onSelect={(date) => {
-            onPickingDate(date);
             updateSlotData("selectedDate", date);
           }}
           enableFromDate={dayjs()}
@@ -84,6 +92,8 @@ function SlotPicker(props: ISlotPicker) {
           selectedValue={meetingSlotRef?.current?.selectedDate}
           onlyShowCurrentMonthDays
           isEnableDate
+          onNextClick={(value) => onPickingDate(value)}
+          onPreviousClick={(value) => onPickingDate(value)}
         />
       </section>
       <section className={styles.slots}>
@@ -110,54 +120,63 @@ function SlotPicker(props: ISlotPicker) {
             </div>
           </RenderWhen.If>
           <RenderWhen.If isTrue={!loading && !!slots?.length}>
-            {slots?.map((date, index) => (
-              <div key={index} className={styles.slotDetails}>
-                <div className={styles.slotDate}>
-                  {dayjs(date.date, "YYYY-MM-DD").format("dddd, MMM D")} -
-                  available slot
-                </div>
-                <div className={styles.availableSlots}>
-                  {date.slots?.map((slot, index) => {
-                    const startTime = dayjs(slot.start_time).format("h:mm A");
-                    const endTime = dayjs(slot.start_time)
-                      .add(meetingSlotRef?.current?.buffer, "minute")
-                      .format("h:mm A");
+            <div className={styles.slotDetails}>
+              <div className={styles.slotDate}>
+                {dayjs(selectedSlots?.selectedDate, "YYYY-MM-DD").format(
+                  "dddd, MMM D"
+                )}{" "}
+                - available slot
+              </div>
+              <div className={styles.availableSlots}>
+                {availableSlotsFn?.[
+                  selectedSlots?.selectedDate.format("YYYY-MM-DD")
+                ]?.map((slot, index) => {
+                  const startTime = dayjs(slot.start_time).format("h:mm A");
+                  const endTime = dayjs(slot.start_time)
+                    .add(meetingSlotRef?.current?.buffer, "minute")
+                    .format("h:mm A");
 
-                    return (
+                  return (
+                    <div
+                      className={classNames({
+                        [styles.slotCard]: true,
+                        [styles.selectedCard]:
+                          selectedSlots.selectedSlot === slot.start_time,
+                      })}
+                      onClick={() => {
+                        updateSlotData("selectedSlot", slot.start_time);
+
+                        props.bookingInfoHandler(meetingSlotRef.current);
+                      }}
+                      key={index}
+                    >
                       <div
                         className={classNames({
-                          [styles.slotCard]: true,
-                          [styles.selectedCard]:
+                          [styles.timeSlots]:
                             selectedSlots.selectedSlot === slot.start_time,
                         })}
-                        onClick={() => {
-                          updateSlotData("selectedSlot", slot.start_time);
-
-                          props.bookingInfoHandler(meetingSlotRef.current);
-                        }}
-                        key={index}
                       >
-                        <div
-                          className={classNames({
-                            [styles.timeSlots]:
-                              selectedSlots.selectedSlot === slot.start_time,
-                          })}
-                        >
-                          <div>
-                            {startTime}&nbsp;-&nbsp;{endTime}
-                          </div>
-                          {selectedSlots.selectedSlot === slot.start_time && (
-                            <PiCheckCircle color="var(--white)" size="25" />
-                          )}
+                        <div>
+                          {startTime}&nbsp;-&nbsp;{endTime}
                         </div>
+                        {selectedSlots.selectedSlot === slot.start_time && (
+                          <PiCheckCircle color="var(--white)" size="25" />
+                        )}
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            </div>
           </RenderWhen.If>
-          <RenderWhen.If isTrue={!loading && !slots?.length}>
+          <RenderWhen.If
+            isTrue={
+              !loading &&
+              !availableSlotsFn?.[
+                selectedSlots?.selectedDate.format("YYYY-MM-DD")
+              ]?.length
+            }
+          >
             <div>No time slot available</div>
           </RenderWhen.If>
         </div>
