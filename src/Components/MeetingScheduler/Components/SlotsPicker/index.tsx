@@ -56,6 +56,7 @@ function SlotPicker(props: ISlotPicker) {
     fetchAvailbleTimeSlots(startDate, endDate)
       .then((response) => {
         setSlots(response);
+        updateSlotData("selectedDate", date ?? selectedSlots.selectedDate);
       })
       .finally(() => setLoading(false));
   };
@@ -66,7 +67,7 @@ function SlotPicker(props: ISlotPicker) {
         acc[curr.date] = curr.slots;
         return acc;
       }, {}),
-    [slots]
+    [slots, selectedSlots.selectedDate]
   );
 
   useEffect(() => {
@@ -92,8 +93,10 @@ function SlotPicker(props: ISlotPicker) {
           selectedValue={meetingSlotRef?.current?.selectedDate}
           onlyShowCurrentMonthDays
           isEnableDate
-          onNextClick={(value) => onPickingDate(value)}
-          onPreviousClick={(value) => onPickingDate(value)}
+          onNextClick={(value) => onPickingDate(value.startOf("month"))}
+          onPreviousClick={(value) => {
+            onPickingDate(selectedSlots.selectedDate.subtract(1, "month"));
+          }}
         />
       </section>
       <section className={styles.slots}>
